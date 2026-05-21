@@ -1,61 +1,81 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Liberal Lawyers
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Liberal Lawyers is a Laravel 12 web application (Inertia + React) for publishing legal content, managing articles and legislation files, and ingesting Dubai Gazette issues. It provides a public-facing site for reading articles and legislation, plus an authenticated admin area for content management.
 
-## About Laravel
+**Tech stack:** PHP 8.2, Laravel 12, Inertia + React, Vite, Tailwind CSS
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Highlights:**
+- Articles and legal posts with multilingual fields (EN/AR)
+- Storage and management of UAE legislation PDFs
+- Scrapers/scripts for Dubai Gazette and UAE legislation downloads (in `scripts/`)
+- Contact form handling and admin article CRUD
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Repository structure
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- `app/` — application code (Controllers, Models, Mail, Requests)
+- `routes/` — web routes ([routes/web.php](routes/web.php))
+- `resources/` — front-end assets and Inertia views
+- `scripts/` — Node scripts for scraping and downloading legislation/Gazette PDFs
+- `database/migrations/` — migrations for users, articles, legal posts, legislation files, etc.
 
-## Learning Laravel
+## Requirements
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP ^8.2
+- Composer
+- Node (recommended 18+) and npm
+- A database (MySQL, MariaDB, or SQLite for local development)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Quick setup
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Clone the repo
 
-## Laravel Sponsors
+	git clone <repo-url>
+	cd liberallawyers
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. Install PHP dependencies
 
-### Premium Partners
+	composer install
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+3. Install JS dependencies
+
+	npm install
+
+4. Copy environment and set values
+
+	cp .env.example .env
+	php artisan key:generate
+
+5. Configure database in `.env` and run migrations
+
+	php artisan migrate
+
+6. (Optional) Create storage symlink
+
+	php artisan storage:link
+
+7. Start development servers
+
+	npm run dev
+	php artisan serve
+
+You can also use the `composer` script `composer dev` which runs the app server, queue listener and vite concurrently in development.
+
+## Useful commands
+
+- Run tests: `composer test` or `php artisan test`
+- Build assets: `npm run build`
+- Run scrapers (node scripts located in `scripts/`) — inspect each script before running.
+
+## Notes about the project
+
+- The project uses multilingual columns (fields ending `_en` and `_ar`) for content.
+- Migrations include tables for contact inquiries, legislation files, Dubai Gazette issues, legal posts and articles.
+- Several artisan commands and npm scripts are defined in `composer.json` and `package.json` to help with development.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Please open issues or pull requests. Keep changes small and focused; run tests and linting before submitting.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+MIT
