@@ -75,7 +75,3 @@ You can also use the `composer` script `composer dev` which runs the app server,
 ## Contributing
 
 Please open issues or pull requests. Keep changes small and focused; run tests and linting before submitting.
-
-## License
-
-MIT
